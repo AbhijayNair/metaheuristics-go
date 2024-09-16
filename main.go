@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
+	funcs "github.com/abhijaynair/metaheuristics-go/functions"
 )
 
 /*
 Returns the status of the server.
-** Only for Testing **
+** Only for Testing **å
 */
 func status(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Server healthy")
@@ -66,14 +68,18 @@ func algorithms(w http.ResponseWriter, r *http.Request) {
 	w.Write(responseJson)
 }
 
+func test(w http.ResponseWriter, r *http.Request) {
+	funcs.Test()
+}
+
 func main() {
 
 	// Start the Server
-
 	server := http.NewServeMux()
 
 	// setup request Handlers
 	server.HandleFunc("/status", status)
+	server.HandleFunc("/test", test)
 	server.HandleFunc("/algorithms", algorithms)
 
 	err := http.ListenAndServe(":8080", server)
