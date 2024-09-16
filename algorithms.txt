@@ -1,0 +1,6 @@
+Hill Climbing
+Simulated Annealing
+Firefly Algorithm
+Bat Algorithm
+Genetic Algorithm
+Differential Evolution
