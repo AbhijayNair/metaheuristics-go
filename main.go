@@ -24,7 +24,7 @@ of available test functions.
 The response is formatted as
 
 	{
-		"Algorithms":[]string
+		"algorithms":[]string
 	}
 */
 func algorithms(w http.ResponseWriter, r *http.Request) {
