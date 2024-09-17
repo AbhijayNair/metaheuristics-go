@@ -68,6 +68,37 @@ func algorithms(w http.ResponseWriter, r *http.Request) {
 	w.Write(responseJson)
 }
 
+func testFunctions(w http.ResponseWriter, r *http.Request){
+	type Functions struct {
+		Functions []string `json:"test_functions"`
+	}
+	
+	file, err := os.Open("functions.txt")
+	if err != nil {
+		return
+	}
+
+	defer file.Close()
+
+	scanner := bufio.NewScaner(file)
+	response := Functions{}
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		response.Functions = append(response.Functions, line)	
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	responseJson, err := json.Marshall(response)
+	if err != nil {
+		fmt.Println("Could not encode json response")
+		return
+	}
+	w.Write(responseJson)
+
+}
+
 func test(w http.ResponseWriter, r *http.Request) {
 	funcs.Test()
 }
@@ -81,7 +112,7 @@ func main() {
 	server.HandleFunc("/status", status)
 	server.HandleFunc("/test", test)
 	server.HandleFunc("/algorithms", algorithms)
-
+	server.HandleFunc("/testfunctions", testFunctions)
 	err := http.ListenAndServe(":8080", server)
 	if err != nil {
 		fmt.Println("Error starting server. Exiting...")
