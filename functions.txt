@@ -1,0 +1,6 @@
+Negative Alpine
+Rosenbrock
+Ackley
+Easom
+Four Peak
+EggCrate
